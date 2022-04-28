@@ -1,0 +1,122 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/categories":
+    get:
+      summary: Lista todas as categorias
+      tags:
+      - Categorias
+      responses:
+        '200':
+          description: categorias cadastradas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  description:
+                    type: string
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  description:
+                    type: string
+        '406':
+          description: unsupported accept header
+    post:
+      summary: Cria uma categoria
+      tags:
+      - Categorias
+      parameters: []
+      responses:
+        '201':
+          description: Categoria criada
+        '422':
+          description: Request Invalida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+              required:
+              - description
+  "/api/v1/categories/{id}":
+    get:
+      summary: Exibe detalhes de uma categoria
+      tags:
+      - Categorias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Categoria Encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  description:
+                    type: string
+                required:
+                - id
+                - description
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  description:
+                    type: string
+                required:
+                - id
+                - description
+        '404':
+          description: Categoria Nao Encontrada
+    put:
+      summary: Atualiza a descrição de uma categoria
+      tags:
+      - Categorias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Categoria Atualizada
+        '404':
+          description: Categoria Nao Encontrada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+              required:
+              - description
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
