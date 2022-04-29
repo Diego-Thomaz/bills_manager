@@ -47,6 +47,8 @@ GEM
     activerecord (6.1.5)
       activemodel (= 6.1.5)
       activesupport (= 6.1.5)
+    activerecord-mysql2-adapter (0.0.3)
+      mysql2
     activestorage (6.1.5)
       actionpack (= 6.1.5)
       activejob (= 6.1.5)
@@ -205,6 +207,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord-mysql2-adapter
   blueprinter
   bootsnap (>= 1.4.4)
   byebug

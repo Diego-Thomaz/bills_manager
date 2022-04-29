@@ -116,7 +116,7 @@ paths:
               required:
               - description
 servers:
-- url: http://{defaultHost}
+- url: https://{defaultHost}
   variables:
     defaultHost:
-      default: localhost:3000
+      default: letsolutions-bills-manager.herokuapp.com/

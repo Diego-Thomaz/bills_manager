@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.3'
 
+gem 'activerecord-mysql2-adapter'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'blueprinter'
 gem 'mysql2'
