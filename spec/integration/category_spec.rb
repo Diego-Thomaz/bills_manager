@@ -9,17 +9,13 @@ describe 'Categorias' do
       produces 'application/json', 'application/xml'
 
       response '200', 'categorias cadastradas' do
-        schema type: :object,
-          properties: {
+        schema type: :array,
+          items: {
             id: { type: :integer },
             description: { type: :string }
           }
 
-        run_test!
-      end
-
-      response '406', 'unsupported accept header' do
-        let(:'Accept') { 'application/foo' }
+        before { FactoryBot.create(:category) }
         run_test!
       end
     end
@@ -99,11 +95,20 @@ describe 'Categorias' do
           required: [ 'id', 'description' ]
 
         let(:id) { FactoryBot.create(:category).id }
+        let(:category) { { category: { description: 'A new description' } } }
+        run_test!
+      end
+
+      response '422', 'Categoria Nao atualizada' do
+        let(:id) { FactoryBot.create(:category).id }
+        let(:category) { { category: { description: nil } } }
+
         run_test!
       end
 
       response '404', 'Categoria Nao Encontrada' do
         let(:id) { 'invalid' }
+        let(:category) { { category: { description: 'Nao atualizou =/' } } }
 
         run_test!
       end

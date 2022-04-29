@@ -6,6 +6,6 @@ class ApplicationController < ActionController::API
   private
 
   def show_errors(exception)
-    render json: exception.message, status: :not_found
+    render json: { error: exception.message }, status: :not_found
   end
 end

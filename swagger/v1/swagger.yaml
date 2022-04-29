@@ -4,6 +4,180 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/accounts_payables":
+    get:
+      summary: Lista todas as Contas a Pagar
+      tags:
+      - Contas a Pagar
+      responses:
+        '200':
+          description: Contas a Pagar cadastradas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    amount:
+                      type: string
+                    category:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        description:
+                          type: string
+                    description:
+                      type: string
+                    due_date:
+                      type: string
+            application/xml:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    amount:
+                      type: string
+                    category:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        description:
+                          type: string
+                    description:
+                      type: string
+                    due_date:
+                      type: string
+    post:
+      summary: Cria uma conta a pagar
+      tags:
+      - Contas a Pagar
+      parameters: []
+      responses:
+        '201':
+          description: Conta a pagar criada
+        '422':
+          description: Request Invalida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                amount:
+                  type: string
+                due_date:
+                  type: string
+                category_id:
+                  type: integer
+  "/api/v1/accounts_payables/{id}":
+    get:
+      summary: Exibe detalhes de uma conta a pagar
+      tags:
+      - Contas a Pagar
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Conta a pagar encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  amount:
+                    type: string
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      description:
+                        type: string
+                  description:
+                    type: string
+                  due_date:
+                    type: string
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  amount:
+                    type: string
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      description:
+                        type: string
+                  description:
+                    type: string
+                  due_date:
+                    type: string
+        '404':
+          description: Conta a pagar Nao Encontrada
+    put:
+      summary: Atualiza a descrição de uma conta a pagar
+      tags:
+      - Contas a Pagar
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Conta a pagar atualizada
+        '422':
+          description: Conta a pagar nao atualizada
+        '404':
+          description: Conta a pagar Nao Encontrada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                amount:
+                  type: string
+                due_date:
+                  type: string
+                category_id:
+                  type: integer
+    delete:
+      summary: Exclui uma conta a pagar
+      tags:
+      - Contas a Pagar
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Conta a pagar atualizada
   "/api/v1/categories":
     get:
       summary: Lista todas as categorias
@@ -15,22 +189,20 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
+                type: array
+                items:
                   id:
                     type: integer
                   description:
                     type: string
             application/xml:
               schema:
-                type: object
-                properties:
+                type: array
+                items:
                   id:
                     type: integer
                   description:
                     type: string
-        '406':
-          description: unsupported accept header
     post:
       summary: Cria uma categoria
       tags:
@@ -103,6 +275,8 @@ paths:
       responses:
         '200':
           description: Categoria Atualizada
+        '422':
+          description: Categoria Nao atualizada
         '404':
           description: Categoria Nao Encontrada
       requestBody:
@@ -119,4 +293,4 @@ servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: letsolutions-bills-manager.herokuapp.com/
+      default: letsolutions-bills-manager.herokuapp.com
