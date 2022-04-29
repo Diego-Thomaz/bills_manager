@@ -1,10 +1,10 @@
 default: &default
-  adapter: mysql2
+  adapter: postgresql
   pool: 5
   timeout: 5000
   username: <%= ENV.fetch("DB_USER_NAME") %>
   password: <%= ENV.fetch("DB_PASSWORD") %>
-  port: <%= ENV["DATABASE_PORT"] || '3306' %>
+  port: <%= ENV["DATABASE_PORT"] || '5432' %>
 
 development:
   <<: *default
@@ -15,4 +15,5 @@ test:
   database: bills_manager_test
 
 production:
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: *default
+  database: bills_manager_production
