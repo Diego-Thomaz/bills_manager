@@ -184,10 +184,10 @@ paths:
     get:
       summary: Lista todas as Contas a Receber
       tags:
-      - Contas a receber
+      - Contas a Receber
       responses:
         '200':
-          description: Contas a receber cadastradas
+          description: Contas a Receber cadastradas
           content:
             application/json:
               schema:
@@ -259,7 +259,7 @@ paths:
     get:
       summary: Exibe detalhes de uma conta a receber
       tags:
-      - Contas a receber
+      - Contas a Receber
       parameters:
       - name: id
         in: path
@@ -313,7 +313,7 @@ paths:
     put:
       summary: Atualiza a descrição de uma conta a receber
       tags:
-      - Contas a receber
+      - Contas a Receber
       parameters:
       - name: id
         in: path
@@ -344,7 +344,7 @@ paths:
     delete:
       summary: Exclui uma conta a receber
       tags:
-      - Contas a receber
+      - Contas a Receber
       parameters:
       - name: id
         in: path
@@ -467,8 +467,44 @@ paths:
                   type: string
               required:
               - description
+  "/api/v1/dashboard":
+    get:
+      summary: Dashboard data
+      tags:
+      - Dashboard
+      parameters:
+      - name: starts_on
+        in: query
+        schema:
+          type: string
+      - name: ends_on
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: dashboard
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_accounts_payable:
+                    type: object
+                    properties:
+                      general:
+                        type: string
+                      by_category:
+                        type: object
+                  total_accounts_receivable:
+                    type: object
+                    properties:
+                      general:
+                        type: string
+                      by_category:
+                        type: object
 servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: letsolutions-bills-manager.herokuapp.com
+      default: letsolutions-bills-manager.herokuapp.com/

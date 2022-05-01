@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resources :categories, except: %i[new edit destroy]
       resources :accounts_payables, except: %i[new edit]
       resources :accounts_receivables, except: %i[new edit]
+
+      get '/dashboard', to: 'dashboard#index'
     end
   end
 end
