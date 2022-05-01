@@ -27,7 +27,7 @@ module Api
 
       def destroy
         accounts_payable.destroy
-        render json: { message: 'Conta excluída com sucesso' }, status: :ok
+        render json: { message: 'Conta a Pagar excluída com sucesso' }, status: :ok
       end
 
       def show
@@ -37,11 +37,11 @@ module Api
       private
 
       def accounts_payable_params
-        params[:accounts_payable].permit(:amount, :description, :due_date, :category_id, :id)
+        params[:accounts_payable].permit(:amount, :description, :due_date, :category_id)
       end
 
       def accounts_payable
-        accounts_payable = AccountsPayable.find(params[:id])
+        AccountsPayable.find(params[:id])
       end
     end
   end

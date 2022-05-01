@@ -178,6 +178,184 @@ paths:
       responses:
         '200':
           description: Conta a pagar atualizada
+        '404':
+          description: Conta a pagar Nao Encontrada
+  "/api/v1/accounts_receivables":
+    get:
+      summary: Lista todas as Contas a Receber
+      tags:
+      - Contas a receber
+      responses:
+        '200':
+          description: Contas a receber cadastradas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    amount:
+                      type: string
+                    category:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        description:
+                          type: string
+                    description:
+                      type: string
+                    due_date:
+                      type: string
+            application/xml:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    amount:
+                      type: string
+                    category:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        description:
+                          type: string
+                    description:
+                      type: string
+                    due_date:
+                      type: string
+    post:
+      summary: Cria uma conta a receber
+      tags:
+      - Contas a Receber
+      parameters: []
+      responses:
+        '201':
+          description: Conta a receber criada com sucesso
+        '422':
+          description: Request Invalida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                amount:
+                  type: string
+                due_date:
+                  type: string
+                category_id:
+                  type: integer
+  "/api/v1/accounts_receivables/{id}":
+    get:
+      summary: Exibe detalhes de uma conta a receber
+      tags:
+      - Contas a receber
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Conta a receber encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  amount:
+                    type: string
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      description:
+                        type: string
+                  description:
+                    type: string
+                  due_date:
+                    type: string
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  amount:
+                    type: string
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      description:
+                        type: string
+                  description:
+                    type: string
+                  due_date:
+                    type: string
+        '404':
+          description: Conta a receber Nao Encontrada
+    put:
+      summary: Atualiza a descrição de uma conta a receber
+      tags:
+      - Contas a receber
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Conta a receber atualizada
+        '422':
+          description: Conta a receber nao atualizada
+        '404':
+          description: Conta a receber Nao Encontrada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                amount:
+                  type: string
+                due_date:
+                  type: string
+                category_id:
+                  type: integer
+    delete:
+      summary: Exclui uma conta a receber
+      tags:
+      - Contas a receber
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Conta a receber atualizada
+        '404':
+          description: Conta a receber Nao Encontrada
   "/api/v1/categories":
     get:
       summary: Lista todas as categorias
